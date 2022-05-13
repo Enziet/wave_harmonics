@@ -13,7 +13,10 @@ A simple script to discover how wave harmonics can create amazing patterns. A lo
 will be noisy, but finding harmonics is the name of the game! There are 3 variables the user can control:
 frequency(f), wavelength(w), and divisor(i). Frequency and wavelength are 32-bit floating point numbers,
 so their value can get fairly high, and the divisor is capped between 128 and 1,920,000,000, in increments
-of 128. (44 and its multiples are very interesting wavelengths!)
+of 128. 
+
+> note: 44 and its multiples are very interesting wavelengths!
+> also note: the GUI is being done with G4P, so you'll need to add the G4P library to complile.
 
 
 ## Controls:
