@@ -52,10 +52,10 @@ float previous; // stores previous frequency before preset change
 
 void setup() {
   size(768, 768); // should be square, and preferably a multiple of gridSize
-  frameRate(30);
+  frameRate(60);
   background(0);
   noSmooth(); // is this needed?
-  noStroke(); // is this needed?
+  noStroke();
   textSize(10);
   
   previous = frequency; // default previous frequency value is current value
@@ -118,9 +118,9 @@ void draw() {
  // draw the stats overlay so we can track the control variables
  if(drawStats) {
     fill(0);
-    rect(0,0, 150,18); // draw a black background behind so the text is legible
+    rect(0,0, width,18); // draw a black background behind so the text is legible
     fill(255);
-    text("f: "+frequency+", w: "+wavelength+", i: "+i_scalar, 8, 12);
+    text("f: "+frequency+", w: "+wavelength+", i: "+i_scalar+", a: "+a, 8, 12);
   }
 }
 
