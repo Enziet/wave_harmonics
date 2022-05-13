@@ -21,9 +21,9 @@ of 128. (44 and its multiples are very interesting wavelengths!)
 - ` = return to previous frequency
 - 1-0 = frequency presets: 1 = 100, 2 = 200, etc...
 - spacebar = pause/unpause update
-- up/down = increase/decrease increment
-- scrollWheel = increase/decrease wavelength
-- shift + scrollWheel = increase/decrease frequency
+- up/down = increase/decrease divisor (i)
+- scrollWheel = increase/decrease wavelength (w)
+- shift + scrollWheel = increase/decrease frequency (f)
 
 
 ## TODO:
