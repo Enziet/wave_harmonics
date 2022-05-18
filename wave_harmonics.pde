@@ -31,7 +31,7 @@ import g4p_controls.*;
 */
 
 // system variables
-int gridSize = 128; // gridSize is the scalar for each 'pixel'; 128 makes them 1/128th of the screen width
+int gridSize = 128; // gridSize is the scalar for each 'pixel'; 128 makes them 1/128th of the program width
 int presetCnt = 10; // number of presets (10 because I use 1-0 on the keyboard for hotkeys)
 boolean drawStats = true; // controls drawing overlay
 boolean pause = false; // controls pause state of wave udates
@@ -42,6 +42,7 @@ float frequency  = 100;
 float wavelength = 1;
 int i_scalar = 128;
 float inc = TWO_PI/i_scalar; // time increment (slice up the unit circle into i_scalar pieces)
+int c = 299999999;
 
 // data variables
 int presets[]; // list of presets
@@ -52,7 +53,7 @@ float previous; // stores previous frequency before preset change
 
 void setup() {
   size(768, 768); // should be square, and preferably a multiple of gridSize
-  frameRate(60);
+  frameRate(29.9);
   background(0);
   noSmooth(); // is this needed?
   noStroke();
@@ -96,11 +97,18 @@ void draw() {
         //float col_left = (x-1 > 0) ? grid[x-1][y] : 255;
         //float col_right = (x+1 < gridSize) ? grid[x+1][y] : 255;
         
-        // todo: wave equation is extremely ripe with potential for additional variation and complication
-        // take the output from the cos/sin wavefuntions and multiply by 255 (since our color is greyscale from 0-255).
-        // then subtract the two to get the color for that pixel
-        col = 255*cos(wavelength*x-a*frequency) - 255*sin(wavelength*y-a*frequency);
-        //col = 255 * ((pow((-1), y)/y) * sin(TWO_PI*y*a));
+        // todo: this wave function is extremely ripe with potential for additional variation and complication
+        float a_x = cos(wavelength*x-a*frequency);
+        float a_y = sin(wavelength*y-a*frequency);
+        
+        // default equation
+        //col = 255*a_x - 255*a_y;
+        
+        // testing equation for working with euler's number (my favorite so far)
+        //col = map(exp(a_x)+exp(a_y), exp(-2),exp(2), 0,255); 
+        
+        // testing equation for working with perlin noise
+        col = 127*(a_x*noise(x)) + 127*(a_y*noise(y));
         
         //todo: for a color(), you can use red(),blue(),green() to extract the individual color values!
         
@@ -199,12 +207,12 @@ void keyReleased() {
       switch(keyCode) {
         // increment control
         case UP:
-          i_scalar += gridSize;
+          i_scalar += 128;
           if(i_scalar > 1920000000) i_scalar = 1920000000; // prevent overflow
           inc = TWO_PI/i_scalar;
           break;
         case DOWN:
-          i_scalar -= gridSize;
+          i_scalar -= 128;
           if(i_scalar < gridSize) i_scalar = gridSize; // prevent scalar below gridSize
           inc = TWO_PI/i_scalar;
           break;
